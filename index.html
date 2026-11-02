@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Maratona Tech 2026 | Neurodivergência & Tecnologia</title>
+  
+  <!-- Tipografia do Google Fonts: Plus Jakarta Sans (títulos) + Inter (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Minimalistas -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Utilitário de Exportação de PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+  <!-- Marca d'água na impressão / PDF -->
+  <div class="print-header-watermark">
+    Maratona Tech 2026 • Relatório Executivo de Campo • Neurodivergência & Tecnologia Escolar • 12 Respostas
+  </div>
+
+  <!-- Barra Superior Simples e Direta -->
+  <header class="navbar no-print">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <span class="brand-title">Maratona Tech</span>
+      </div>
+
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline btn-sm btn-export-print" title="Imprimir ou Salvar via Navegador">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Imprimir / Salvar PDF
+        </button>
+        <button type="button" id="btnTopDownloadPdf" class="btn btn-primary btn-sm">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Baixar PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Área do Dashboard que entra na visualização e no PDF -->
+  <main class="container main-content" id="pdfReportContent">
+    
+    <!-- Cabeçalho do Dashboard -->
+    <section class="dashboard-header">
+      <h1 class="dashboard-title">Neurodivergência e Tecnologia nas Escolas</h1>
+      <p class="dashboard-subtitle">
+        Diagnóstico com professores, familiares de pessoas com TEA e estudantes sobre a sobrecarga na criação de materiais e a validação de soluções para automatizar rotinas e relatórios.
+      </p>
+    </section>
+
+    <!-- Barra de Filtros por Perfil -->
+    <div class="filter-bar no-print">
+      <div class="filter-group">
+        <span class="filter-label">Filtrar por Perfil:</span>
+        <button type="button" class="filter-pill active" data-filter="all">Todos (12)</button>
+        <button type="button" class="filter-pill" data-filter="estudante">Estudantes (6)</button>
+        <button type="button" class="filter-pill" data-filter="educador">Professores (3)</button>
+        <button type="button" class="filter-pill" data-filter="familiar">Familiares TEA (3)</button>
+      </div>
+      <div class="filter-meta" id="filterMeta">
+        Exibindo 12 de 12 respostas registradas
+      </div>
+    </div>
+
+    <!-- Grade de Métricas Principais (KPIs) -->
+    <section class="kpi-grid" aria-label="Métricas Principais">
+      <div class="kpi-card">
+        <div class="kpi-label">Amostra Analisada</div>
+        <div class="kpi-value" id="kpiTotal">12</div>
+        <div class="kpi-subtext">Respostas registradas no formulário</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Impacto da Automação (1 a 5)</div>
+        <div class="kpi-value" id="kpiScore">4.42 / 5.0</div>
+        <div class="kpi-subtext">Média linear de aprovação da solução</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Déficit Tecnológico Escolar</div>
+        <div class="kpi-value" id="kpiDeficit">100%</div>
+        <div class="kpi-subtext">Adaptação 100% manual ou softwares insuficientes</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Gargalo: Tempo & Ferramentas</div>
+        <div class="kpi-value" id="kpiTime">75%</div>
+        <div class="kpi-subtext">Principal barreira para métodos estruturados</div>
+      </div>
+    </section>
+
+    <!-- Grade de Gráficos Analíticos -->
+    <section class="charts-grid" aria-label="Gráficos Analíticos">
+      
+      <!-- Gráfico 1: Perfil da Amostra -->
+      <div class="card chart-card">
+        <div class="chart-card-header">
+          <h3 class="chart-card-title">1. Composição da Amostra</h3>
+          <p class="chart-card-desc">Proximidade com o ambiente escolar ou autismo</p>
+        </div>
+        <div class="chart-body" id="chartProfiles"></div>
+      </div>
+
+      <!-- Gráfico 2: Maiores Obstáculos -->
+      <div class="card chart-card">
+        <div class="chart-card-header">
+          <h3 class="chart-card-title">2. Maiores Obstáculos na Sala de Aula</h3>
+          <p class="chart-card-desc">Barreiras para aplicação de metodologias como o Método TEACCH</p>
+        </div>
+        <div class="chart-body" id="chartObstacles"></div>
+      </div>
+
+      <!-- Gráfico 3: Avaliação de Impacto da Automação -->
+      <div class="card chart-card">
+        <div class="chart-card-header">
+          <h3 class="chart-card-title">3. Receptividade à Automação da Rotina</h3>
+          <p class="chart-card-desc">Escala linear de 1 ("Não ajudaria") a 5 ("Ajudaria totalmente")</p>
+        </div>
+        <div class="chart-body" id="chartRatings"></div>
+      </div>
+
+      <!-- Gráfico 4: Suporte Escolar no Brasil -->
+      <div class="card chart-card">
+        <div class="chart-card-header">
+          <h3 class="chart-card-title">4. Suporte Tecnológico nas Escolas</h3>
+          <p class="chart-card-desc">Percepção sobre ferramentas e preparo da infraestrutura</p>
+        </div>
+        <div class="chart-body" id="chartSupport"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Notificação Flutuante (Toast) -->
+  <div id="toastNotice" class="toast-notice"></div>
+
+  <!-- Script Lógico -->
+  <script src="app.js"></script>
+</body>
+</html>
