@@ -1,15 +1,16 @@
 /* ==========================================================================
    MARATONA TECH 2026 - DASHBOARD DE NEURODIVERGÊNCIA & TECNOLOGIA
    Diretrizes Visuais Obrigatórias:
-   - Estilo: Minimalista, limpo e direto. Foco nos dados, sem exageros ou neon.
+   - Estilo: Minimalista, limpo e direto. Sóbrio, sem exageros ou neon.
    - Tipografia: 'Plus Jakarta Sans' (títulos) e 'Inter' (corpo).
    - Cores: Paleta sóbria de 4 cores (#0F172A, #475569, #F8FAFC, #2563EB).
-   - Sombras e Bordas: Sem sombras intensas, bordas 1px solid #E2E8F0, radius: 6px a 8px.
+   - Modo Escuro: Fundo #0B0F19, superfícies #131B2E, bordas #1E293B, texto #F8FAFC.
+   - Sombras e Bordas: Sem sombras intensas, bordas 1px solid, radius: 6px a 8px.
    - Espaçamento: Foco em respiro e whitespace.
    ========================================================================== */
 
 :root {
-  /* Paleta sóbria */
+  /* Paleta Sóbria - Modo Claro */
   --bg-page: #F8FAFC;
   --bg-surface: #FFFFFF;
   --bg-subtle: #F1F5F9;
@@ -26,6 +27,10 @@
   --accent-subtle: #EFF6FF;
   --accent-border: #BFDBFE;
 
+  --chart-track: #F1F5F9;
+  --chart-bar-neutral: #64748B;
+  --chart-bar-light: #94A3B8;
+
   /* Tipografia */
   --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -35,6 +40,29 @@
   --radius-md: 6px;
   --radius-lg: 8px;
   --max-width: 1140px;
+}
+
+/* Modo Escuro Sóbrio e Elegante (sem neon) */
+[data-theme="dark"] {
+  --bg-page: #0B0F19;
+  --bg-surface: #131B2E;
+  --bg-subtle: #1C263B;
+  
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-light: #64748B;
+  
+  --border-color: #1E293B;
+  --border-focus: #334155;
+  
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+  --accent-subtle: #172554;
+  --accent-border: #1E3A8A;
+
+  --chart-track: #1C263B;
+  --chart-bar-neutral: #94A3B8;
+  --chart-bar-light: #64748B;
 }
 
 /* Reset Básico */
@@ -47,7 +75,6 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  color-scheme: light;
 }
 
 body {
@@ -57,6 +84,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Container */
@@ -94,6 +122,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 50;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .navbar-inner {
@@ -109,35 +138,12 @@ p {
   gap: 10px;
 }
 
-.brand-icon {
-  width: 28px;
-  height: 28px;
-  background-color: var(--accent);
-  color: #FFFFFF;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.85rem;
-  font-family: var(--font-heading);
-}
-
 .brand-title {
-  font-size: 0.975rem;
+  font-size: 1.05rem;
   font-weight: 600;
   font-family: var(--font-heading);
   color: var(--text-main);
-}
-
-.brand-tag {
-  font-size: 0.75rem;
-  color: var(--text-light);
-  background-color: var(--bg-subtle);
-  border: 1px solid var(--border-color);
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .nav-actions {
@@ -191,32 +197,15 @@ p {
   font-size: 0.8125rem;
 }
 
+.btn-xs {
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
 /* Cabeçalho do Dashboard */
 .dashboard-header {
   margin-bottom: 28px;
-}
-
-.header-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--accent-subtle);
-  border: 1px solid var(--accent-border);
-  color: var(--accent);
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 12px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.header-pill-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent);
-  border-radius: 50%;
 }
 
 .dashboard-title {
@@ -232,7 +221,7 @@ p {
   line-height: 1.55;
 }
 
-/* Barra de Filtros */
+/* Barra de Filtros e Status Live */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -244,6 +233,7 @@ p {
   border-radius: var(--radius-md);
   padding: 10px 16px;
   margin-bottom: 24px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .filter-group {
@@ -283,9 +273,39 @@ p {
   color: #FFFFFF;
 }
 
+/* Indicador de Atualização Ao Vivo */
+.live-sync-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background-color: #10B981;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 2.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
 .filter-meta {
   font-size: 0.8125rem;
   color: var(--text-light);
+}
+
+.refreshing {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
 }
 
 /* Grid de Métricas Principais (KPIs) */
@@ -304,6 +324,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .kpi-label {
@@ -341,6 +362,7 @@ p {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 24px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .chart-card-header {
@@ -407,7 +429,7 @@ p {
 .custom-bar-track {
   width: 100%;
   height: 8px;
-  background-color: var(--bg-subtle);
+  background-color: var(--chart-track);
   border-radius: var(--radius-sm);
   overflow: hidden;
 }
@@ -420,11 +442,11 @@ p {
 }
 
 .custom-bar-fill.neutral-fill {
-  background-color: #64748B;
+  background-color: var(--chart-bar-neutral);
 }
 
 .custom-bar-fill.light-fill {
-  background-color: #94A3B8;
+  background-color: var(--chart-bar-light);
 }
 
 /* Gráfico Escala Linear 1 a 5 */
@@ -508,77 +530,17 @@ p {
   flex-shrink: 0;
 }
 
-/* Bloco de Exportação PDF */
-.pdf-export-banner {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.section-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--accent);
-  margin-bottom: 4px;
-}
-
-.pdf-banner-content {
-  max-width: 620px;
-}
-
-.pdf-banner-title {
-  font-size: 1.25rem;
-  margin-bottom: 4px;
-}
-
-.pdf-banner-desc {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.pdf-banner-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-/* Rodapé */
-.footer {
-  padding: 32px 0;
-  background-color: var(--bg-surface);
-  border-top: 1px solid var(--border-color);
-}
-
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 0.8125rem;
-  color: var(--text-light);
-}
-
 /* Notificação Toast */
 .toast-notice {
   position: fixed;
   bottom: 24px;
   right: 24px;
   background-color: var(--text-main);
-  color: #FFFFFF;
-  padding: 12px 18px;
+  color: var(--bg-surface);
+  padding: 10px 18px;
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: none;
   align-items: center;
   gap: 8px;
@@ -587,7 +549,7 @@ p {
 
 /* ==========================================================================
    ESTILOS DE IMPRESSÃO / GERAÇÃO DE PDF (@media print)
-   Gera folha A4 executiva limpa, omitindo barras e botões
+   Gera folha A4 executiva limpa em papel branco sem gastar tinta
    ========================================================================== */
 @media print {
   @page {
@@ -603,8 +565,6 @@ p {
 
   .navbar,
   .filter-bar,
-  .pdf-export-banner,
-  .footer,
   .toast-notice,
   .no-print {
     display: none !important;
@@ -711,8 +671,7 @@ p {
     padding-bottom: 4px;
   }
 
-  .pdf-export-banner {
-    flex-direction: column;
-    align-items: stretch;
+  .live-sync-indicator {
+    justify-content: space-between;
   }
 }
